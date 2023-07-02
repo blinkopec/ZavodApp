@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище ZavodPracticeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="idAdmin" />
+    </Key>
+    <Property Name="idAdmin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="login" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Brak">
+    <Key>
+      <PropertyRef Name="idBrak" />
+    </Key>
+    <Property Name="idBrak" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Detail">
+    <Key>
+      <PropertyRef Name="idDetail" />
+    </Key>
+    <Property Name="idDetail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="idNews" />
+    </Key>
+    <Property Name="idNews" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idAdmin" Type="int" />
+    <Property Name="title" Type="text" />
+    <Property Name="textNews" Type="text" />
+    <Property Name="date" Type="date" />
+  </EntityType>
+  <EntityType Name="ReportBrak">
+    <Key>
+      <PropertyRef Name="idBrakCard" />
+    </Key>
+    <Property Name="idBrakCard" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idBrak" Type="int" />
+    <Property Name="idReportCard" Type="int" />
+  </EntityType>
+  <EntityType Name="ReportCard">
+    <Key>
+      <PropertyRef Name="idReportCard" />
+    </Key>
+    <Property Name="idDetail" Type="int" />
+    <Property Name="idWorker" Type="int" />
+    <Property Name="numberOfDetails" Type="int" />
+    <Property Name="idReportCard" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="date" Type="date" Nullable="false" />
+    <Property Name="workingTime" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Worker">
+    <Key>
+      <PropertyRef Name="idWorker" />
+    </Key>
+    <Property Name="idWorker" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="surname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="middlename" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="bet" Type="int" />
+    <Property Name="login" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_News_Admin">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="idAdmin" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="idAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportBrak_Brak">
+    <End Role="Brak" Type="Self.Brak" Multiplicity="0..1" />
+    <End Role="ReportBrak" Type="Self.ReportBrak" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brak">
+        <PropertyRef Name="idBrak" />
+      </Principal>
+      <Dependent Role="ReportBrak">
+        <PropertyRef Name="idBrak" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportBrak_ReportCard">
+    <End Role="ReportCard" Type="Self.ReportCard" Multiplicity="0..1" />
+    <End Role="ReportBrak" Type="Self.ReportBrak" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReportCard">
+        <PropertyRef Name="idReportCard" />
+      </Principal>
+      <Dependent Role="ReportBrak">
+        <PropertyRef Name="idReportCard" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportCard_Detail">
+    <End Role="Detail" Type="Self.Detail" Multiplicity="0..1" />
+    <End Role="ReportCard" Type="Self.ReportCard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Detail">
+        <PropertyRef Name="idDetail" />
+      </Principal>
+      <Dependent Role="ReportCard">
+        <PropertyRef Name="idDetail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportCard_Worker">
+    <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+    <End Role="ReportCard" Type="Self.ReportCard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Worker">
+        <PropertyRef Name="idWorker" />
+      </Principal>
+      <Dependent Role="ReportCard">
+        <PropertyRef Name="idWorker" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Хранилище ZavodPracticeModelContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Brak" EntityType="Self.Brak" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Detail" EntityType="Self.Detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportBrak" EntityType="Self.ReportBrak" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportCard" EntityType="Self.ReportCard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_News_Admin" Association="Self.FK_News_Admin">
+      <End Role="Admin" EntitySet="Admin" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportBrak_Brak" Association="Self.FK_ReportBrak_Brak">
+      <End Role="Brak" EntitySet="Brak" />
+      <End Role="ReportBrak" EntitySet="ReportBrak" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportBrak_ReportCard" Association="Self.FK_ReportBrak_ReportCard">
+      <End Role="ReportCard" EntitySet="ReportCard" />
+      <End Role="ReportBrak" EntitySet="ReportBrak" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportCard_Detail" Association="Self.FK_ReportCard_Detail">
+      <End Role="Detail" EntitySet="Detail" />
+      <End Role="ReportCard" EntitySet="ReportCard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportCard_Worker" Association="Self.FK_ReportCard_Worker">
+      <End Role="Worker" EntitySet="Worker" />
+      <End Role="ReportCard" EntitySet="ReportCard" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

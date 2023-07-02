@@ -1,0 +1,24 @@
+﻿<Window x:Class="ZavodApp.AdminResources.AdminMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZavodApp.AdminResources"
+        mc:Ignorable="d"
+        Title="AdminMainWindow" Height="450" Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <Button Content="Редактирвоание таблиц" Width="140" Height="30" Margin="0,20,0,0" Click="Button_Click"/>
+            <Button Click="AddWorkerButton_Click" Content="Добавление работника" Width="140" Height="30" Margin="0,20,0,0"/>
+        </StackPanel>
+
+        <Frame x:Name="MainFrame" Grid.Column="1"  NavigationUIVisibility="Hidden" xmlns:beha="clr-namespace:A"/>
+    </Grid>
+</Window>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZavodApp", "ZavodApp\ZavodApp.csproj", "{332F7A24-36D4-40F7-BC53-8219D6478030}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{332F7A24-36D4-40F7-BC53-8219D6478030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{332F7A24-36D4-40F7-BC53-8219D6478030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{332F7A24-36D4-40F7-BC53-8219D6478030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{332F7A24-36D4-40F7-BC53-8219D6478030}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {513C8B0D-17C5-401C-899F-0C933B19BE04}
+	EndGlobalSection
+EndGlobal

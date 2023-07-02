@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZavodPracticeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="idAdmin" />
+    </Key>
+    <Property Name="idAdmin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="News" Relationship="Self.FK_News_Admin" FromRole="Admin" ToRole="News" />
+  </EntityType>
+  <EntityType Name="Brak">
+    <Key>
+      <PropertyRef Name="idBrak" />
+    </Key>
+    <Property Name="idBrak" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ReportBrak" Relationship="Self.FK_ReportBrak_Brak" FromRole="Brak" ToRole="ReportBrak" />
+  </EntityType>
+  <EntityType Name="Detail">
+    <Key>
+      <PropertyRef Name="idDetail" />
+    </Key>
+    <Property Name="idDetail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ReportCard" Relationship="Self.FK_ReportCard_Detail" FromRole="Detail" ToRole="ReportCard" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="idNews" />
+    </Key>
+    <Property Name="idNews" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idAdmin" Type="Int32" />
+    <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="textNews" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK_News_Admin" FromRole="News" ToRole="Admin" />
+  </EntityType>
+  <EntityType Name="ReportBrak">
+    <Key>
+      <PropertyRef Name="idBrakCard" />
+    </Key>
+    <Property Name="idBrakCard" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idBrak" Type="Int32" />
+    <Property Name="idReportCard" Type="Int32" />
+    <NavigationProperty Name="Brak" Relationship="Self.FK_ReportBrak_Brak" FromRole="ReportBrak" ToRole="Brak" />
+    <NavigationProperty Name="ReportCard" Relationship="Self.FK_ReportBrak_ReportCard" FromRole="ReportBrak" ToRole="ReportCard" />
+  </EntityType>
+  <EntityType Name="ReportCard">
+    <Key>
+      <PropertyRef Name="idReportCard" />
+    </Key>
+    <Property Name="idDetail" Type="Int32" />
+    <Property Name="idWorker" Type="Int32" />
+    <Property Name="numberOfDetails" Type="Int32" />
+    <Property Name="idReportCard" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="workingTime" Type="Int32" />
+    <NavigationProperty Name="Detail" Relationship="Self.FK_ReportCard_Detail" FromRole="ReportCard" ToRole="Detail" />
+    <NavigationProperty Name="ReportBrak" Relationship="Self.FK_ReportBrak_ReportCard" FromRole="ReportCard" ToRole="ReportBrak" />
+    <NavigationProperty Name="Worker" Relationship="Self.FK_ReportCard_Worker" FromRole="ReportCard" ToRole="Worker" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Worker">
+    <Key>
+      <PropertyRef Name="idWorker" />
+    </Key>
+    <Property Name="idWorker" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="middlename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="bet" Type="Int32" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ReportCard" Relationship="Self.FK_ReportCard_Worker" FromRole="Worker" ToRole="ReportCard" />
+  </EntityType>
+  <Association Name="FK_News_Admin">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="idAdmin" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="idAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportBrak_Brak">
+    <End Role="Brak" Type="Self.Brak" Multiplicity="0..1" />
+    <End Role="ReportBrak" Type="Self.ReportBrak" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brak">
+        <PropertyRef Name="idBrak" />
+      </Principal>
+      <Dependent Role="ReportBrak">
+        <PropertyRef Name="idBrak" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportCard_Detail">
+    <End Role="Detail" Type="Self.Detail" Multiplicity="0..1" />
+    <End Role="ReportCard" Type="Self.ReportCard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Detail">
+        <PropertyRef Name="idDetail" />
+      </Principal>
+      <Dependent Role="ReportCard">
+        <PropertyRef Name="idDetail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportBrak_ReportCard">
+    <End Role="ReportCard" Type="Self.ReportCard" Multiplicity="0..1" />
+    <End Role="ReportBrak" Type="Self.ReportBrak" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReportCard">
+        <PropertyRef Name="idReportCard" />
+      </Principal>
+      <Dependent Role="ReportBrak">
+        <PropertyRef Name="idReportCard" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportCard_Worker">
+    <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+    <End Role="ReportCard" Type="Self.ReportCard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Worker">
+        <PropertyRef Name="idWorker" />
+      </Principal>
+      <Dependent Role="ReportCard">
+        <PropertyRef Name="idWorker" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ZavodPracticeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admin" EntityType="Self.Admin" />
+    <EntitySet Name="Brak" EntityType="Self.Brak" />
+    <EntitySet Name="Detail" EntityType="Self.Detail" />
+    <EntitySet Name="News" EntityType="Self.News" />
+    <EntitySet Name="ReportBrak" EntityType="Self.ReportBrak" />
+    <EntitySet Name="ReportCard" EntityType="Self.ReportCard" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Worker" EntityType="Self.Worker" />
+    <AssociationSet Name="FK_News_Admin" Association="Self.FK_News_Admin">
+      <End Role="Admin" EntitySet="Admin" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportBrak_Brak" Association="Self.FK_ReportBrak_Brak">
+      <End Role="Brak" EntitySet="Brak" />
+      <End Role="ReportBrak" EntitySet="ReportBrak" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportCard_Detail" Association="Self.FK_ReportCard_Detail">
+      <End Role="Detail" EntitySet="Detail" />
+      <End Role="ReportCard" EntitySet="ReportCard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportBrak_ReportCard" Association="Self.FK_ReportBrak_ReportCard">
+      <End Role="ReportCard" EntitySet="ReportCard" />
+      <End Role="ReportBrak" EntitySet="ReportBrak" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportCard_Worker" Association="Self.FK_ReportCard_Worker">
+      <End Role="Worker" EntitySet="Worker" />
+      <End Role="ReportCard" EntitySet="ReportCard" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ZavodPracticeModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ZavodPracticeModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3f2195561c514ab7b7f15d0aa731d1f1" Name="Diagram1">
+        <EntityTypeShape EntityType="ZavodPracticeModel.Admin" Width="1.5" PointX="5.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZavodPracticeModel.Brak" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZavodPracticeModel.Detail" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZavodPracticeModel.News" Width="1.5" PointX="8" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZavodPracticeModel.ReportBrak" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZavodPracticeModel.ReportCard" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZavodPracticeModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZavodPracticeModel.Worker" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="ZavodPracticeModel.FK_News_Admin" ManuallyRouted="false" />
+        <AssociationConnector Association="ZavodPracticeModel.FK_ReportBrak_Brak" ManuallyRouted="false" />
+        <AssociationConnector Association="ZavodPracticeModel.FK_ReportCard_Detail" ManuallyRouted="false" />
+        <AssociationConnector Association="ZavodPracticeModel.FK_ReportBrak_ReportCard" ManuallyRouted="false" />
+        <AssociationConnector Association="ZavodPracticeModel.FK_ReportCard_Worker" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
